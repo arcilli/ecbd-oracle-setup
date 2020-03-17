@@ -1,0 +1,37 @@
+# commands runned in user's terminal
+# descărcarea imaginii și copierea fisierelor pentru BD durează destul de mult (câteva minute)
+$ [sudo] docker run --name <container-name> [oracle-ecbd-container] -p 1521:1521 -p 5500:5500 -e ORACLE_SID=XE -e ORACLE_PWD=Oradoc_db1 oracle/database:12.2.0.1-ee
+# după statusul <<Completed:    ALTER PLUGGABLE DATABASE ORCLPDB1 SAVE STATE>>, se rulează dintr-un alt terminal
+$ docker cp DM_SH.DMP <container-name>:/opt/oracle/admin/XE/dpdump/
+$ docker exec -it --tty --user root --workdir / oracle-ecbd-container bash -c "chown oracle /opt/oracle/admin/XE/dpdump/DM_SH.DMP"
+
+$ docker exec -it <nume-container> [oracle-ecbd-container] bash
+# commands runned in container's bash as oracle user
+[oracle@container]$ chmod 777 /opt/oracle/admin/XE/dpdump/DM_SH.DMP
+[oracle@container]$ sqlplus sys/Oradoc_db1@localhost:1521/XE as sysdba
+
+# sqlplus commands
+alter session set "_ORACLE_SCRIPT"=true;
+CREATE USER student IDENTIFIED BY "student";
+GRANT DBA to student;
+
+CREATE TABLESPACE EXAMPLE
+DATAFILE 'tbs_perm_02.dat'
+SIZE 10M
+REUSE
+AUTOEXTEND ON NEXT 10M MAXSIZE 200M;
+
+CREATE DIRECTORY MY_IMPORT_DIR AS '/opt/oracle/admin/XE/dpdump/';
+exit;
+
+# commands runned from container's bash
+[oracle@container]$ impdp \"sys/Oradoc_db1 as sysdba\" REMAP_SCHEMA=dm:student DIRECTORY=MY_IMPORT_DIR DUMPFILE=DM_SH.DMP;
+
+# containerul trebuie oprit cu 
+docker container stop <container-name> [oracle-ecbd-container]
+
+# containerul se pornește cu
+docker container start <container-name> [oracle-ecbd-container]
+
+# În cazul containerul este șters / imaginea este rulată cu docker run <nume-imagine>, se va recrea containerul de la 0, inclusiv partea de set-up care durează.
+
