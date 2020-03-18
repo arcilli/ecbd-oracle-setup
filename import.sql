@@ -1,0 +1,11 @@
+alter session set "_ORACLE_SCRIPT"=true;
+CREATE USER student IDENTIFIED BY "student";
+GRANT DBA to student;
+
+CREATE TABLESPACE EXAMPLE
+DATAFILE 'tbs_perm_02.dat'
+SIZE 10M
+REUSE
+AUTOEXTEND ON NEXT 10M MAXSIZE 200M;
+
+CREATE DIRECTORY MY_IMPORT_DIR AS '/opt/oracle/admin/XE/dpdump/';
