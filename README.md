@@ -22,7 +22,7 @@ After the script is executed and the dump file is imported, you can use the data
 
 ## Configuration
 By default, the script creates an user **student** with pass **student**.
-It imports the dmp file from the repository. Also, a tablespace named example is created. 
+It imports the dmp file from the repository. Also, a tablespace named *example* is created. 
 
 ## Usage
 For the moment, the image does not support volumes, so the data will not be persisted if the container is removed and a
