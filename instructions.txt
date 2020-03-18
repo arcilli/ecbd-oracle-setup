@@ -1,7 +1,0 @@
-# commands runned in user's terminal
-# descărcarea imaginii și copierea fisierelor pentru BD durează destul de mult (câteva minute)
-$ [sudo] docker run --name <container-name> [oracle-ecbd-container] -p 1521:1521 -p 5500:5500 -e ORACLE_SID=XE -e ORACLE_PWD=Oradoc_db1 arcilli/ecbd-oracle-db:12.2.0.1-ee
-# după statusul <<Completed:    ALTER PLUGGABLE DATABASE ORCLPDB1 SAVE STATE>>, se rulează dintr-un alt terminal
-
-chmod +x script.sh
-./script.sh
