@@ -27,7 +27,7 @@ It imports the dmp file from the repository. Also, a tablespace named *example* 
 ## Usage
 For the moment, the image does not support volumes, so the data will not be persisted if the container is removed and a
 new one is created. 
-<p>For this reason, please use docker start container-name instead of creating a new one with docker run image-name.
+<p>For this reason, please use `docker start container-name` instead of creating a new one with `docker run image-name`.
 </p>
 
 The database is self closing at CTRL+C or `docker-stop container-name`.
