@@ -30,5 +30,5 @@ Considering this, please use `docker start container-name` instead of creating a
 The database is self closing at CTRL+C or `docker-stop container-name`.
 
 ## Credits
-This repository is based on https://github.com/oracle/docker-image. The docker image was build using
+This repository is based on https://github.com/oracle/docker-images/. The docker image was build using
 the official sources of OracleDB 12.2.0.1 and it's hosted on dockerhub.
